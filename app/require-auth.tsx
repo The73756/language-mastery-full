@@ -1,20 +1,16 @@
 import { redirect } from 'next/navigation'
 import { PropsWithChildren, useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { selectIsAuthenticated } from '@/store/user/selectors/user-selector'
+import { selectUser } from '@/store/user/selectors/user-selector'
 
 export const RequireAuth = ({ children }: PropsWithChildren) => {
-  const auth = useSelector(selectIsAuthenticated)
+  const userData = useSelector(selectUser)
 
   useEffect(() => {
-    if (!auth) {
+    if (userData._inited && !userData.authData) {
       return redirect('/')
     }
-  }, [auth])
-
-  if (!auth) {
-    return null
-  }
+  }, [userData])
 
   return <>{children}</>
 }

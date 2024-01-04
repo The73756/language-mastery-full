@@ -3,7 +3,7 @@ import clsx from 'clsx'
 import { Fragment, PropsWithChildren } from 'react'
 import { Icon } from '@/components/shared/icon'
 
-interface ModalWrapperProps {
+export interface ModalWrapperProps {
   open: boolean
   onClose: () => void
   wrapperClass?: string

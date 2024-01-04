@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
 import { Button } from '@/components/shared/button'
 import { FormWrapper } from '@/components/shared/form-wrapper'
 import { Input } from '@/components/shared/input'
@@ -34,12 +35,18 @@ export const RegistrationForm = () => {
       return
     }
 
+    const authPromise = dispatch(registrationByUsername(data)).unwrap()
+
     try {
-      await dispatch(registrationByUsername(data))
-      await router.push(Routes.HOME)
+      await toast.promise(authPromise, {
+        loading: 'Регистрация...',
+        error: 'Произошла ошибка, попробуйте позже!',
+        success: (user) => `Добро пожаловать, ${user.username}!`,
+      })
+
+      router.push(Routes.HOME)
     } catch (error) {
-      console.log('registration-form [onSubmit]', error)
-      alert('Registration error')
+      console.log('auth-form [onSubmit]', error)
     }
   }
 

@@ -6,8 +6,6 @@ import { loginByUsername } from '../service/login-by-username'
 
 const initialState: UserSchema = {
   isLoading: false,
-  username: '',
-  password: '',
   _inited: false,
 }
 
@@ -15,12 +13,6 @@ export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setUsername: (state, action: PayloadAction<UserSchema['username']>) => {
-      state.username = action.payload
-    },
-    setPassword: (state, action: PayloadAction<UserSchema['password']>) => {
-      state.password = action.payload
-    },
     setAuthData: (state, action: PayloadAction<User>) => {
       state.authData = action.payload
       if (typeof window !== 'undefined') {

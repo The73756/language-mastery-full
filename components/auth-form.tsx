@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
 import { Button } from '@/components/shared/button'
 import { FormWrapper } from '@/components/shared/form-wrapper'
 import { Input } from '@/components/shared/input'
@@ -27,12 +28,18 @@ export const AuthForm = () => {
   const dispatch = useAppDispatch()
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    const authPromise = dispatch(loginByUsername(data)).unwrap()
+
     try {
-      await dispatch(loginByUsername(data))
+      await toast.promise(authPromise, {
+        loading: 'Аутентификация...',
+        error: 'Не правильный логин или пароль!',
+        success: (user) => `Добро пожаловать, ${user.username}!`,
+      })
+
       router.push(Routes.HOME)
     } catch (error) {
       console.log('auth-form [onSubmit]', error)
-      alert('Ошибка регистрации')
     }
   }
 

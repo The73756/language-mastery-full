@@ -81,6 +81,9 @@ const config: Config = {
       },
     },
   },
-  plugins: [require('@headlessui/tailwindcss')],
+  plugins: [
+    require('@headlessui/tailwindcss'),
+    require('tailwind-scrollbar')({ nocompatible: true }),
+  ],
 }
 export default config

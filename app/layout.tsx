@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="ru" className={`${montserrat.variable} ${poppins.variable}`}>
-      <body className="min-h-screen flex flex-col">
+      <body className="min-h-screen flex flex-col scrollbar-thumb-accent scrollbar-track-light-blue hover:scrollbar-thumb-accent-hover scrollbar scrollbar-thumb-rounded-full">
         <StoreProvider>
           <Header />
           <main className="flex-1 h-full flex flex-col">{children}</main>
