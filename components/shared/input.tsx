@@ -1,6 +1,6 @@
 import { cva, VariantProps } from 'class-variance-authority'
 import clsx from 'clsx'
-import { InputHTMLAttributes, PropsWithChildren } from 'react'
+import { ChangeEvent, InputHTMLAttributes, PropsWithChildren } from 'react'
 
 const inputVariants = cva(
   'h-58 rounded-2xl overflow-hidden text-16-700 block outline-accent focus-within:outline',
@@ -18,9 +18,10 @@ const inputVariants = cva(
 )
 
 export interface InputProps
-  extends InputHTMLAttributes<HTMLInputElement>,
+  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange'>,
     VariantProps<typeof inputVariants> {
   inputClass?: string
+  onChange?: (value: string) => void
 }
 
 export const Input = ({
@@ -29,11 +30,17 @@ export const Input = ({
   className,
   inputClass,
   children,
+  onChange,
   ...props
 }: PropsWithChildren<InputProps>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    onChange?.(e.target.value)
+  }
+
   return (
     <label className={inputVariants({ preset, className })}>
       <input
+        onChange={handleChange}
         className={clsx([
           'focus:outline-none px-4 w-full h-full placeholder:text-current placeholder:opacity-85 bg-transparent',
           inputClass,

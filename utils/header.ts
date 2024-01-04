@@ -1,8 +1,10 @@
+import { useAppSelector } from '@/hooks/app-dispatch'
+import { selectIsAuthenticated } from '@/store/user/selectors/user-selector'
 import { HeaderLink } from '@/types/header'
 import { Routes } from '@/types/routes'
 
-export const getHeaderLinks = () => {
-  const isAuth = true
+export const useHeaderLinks = () => {
+  const isAuth = useAppSelector(selectIsAuthenticated)
 
   const links: HeaderLink[] = [
     {

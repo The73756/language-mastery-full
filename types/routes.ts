@@ -5,3 +5,5 @@ export const Routes = {
 
   ADMIN: '/admin',
 } as const
+
+export const ProtectedRoutes: string[] = [Routes.ADMIN]

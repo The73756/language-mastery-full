@@ -2,6 +2,7 @@ import './globals.css'
 import type { Metadata } from 'next'
 import { Montserrat, Poppins } from 'next/font/google'
 import { ReactNode } from 'react'
+import StoreProvider from '@/app/store-provider'
 import { Footer } from '@/components/footer'
 import { Header } from '@/components/header'
 
@@ -22,9 +23,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="ru" className={`${montserrat.variable} ${poppins.variable}`}>
       <body className="min-h-screen flex flex-col">
-        <Header />
-        <main className="flex-1 h-full flex flex-col">{children}</main>
-        <Footer />
+        <StoreProvider>
+          <Header />
+          <main className="flex-1 h-full flex flex-col">{children}</main>
+          <Footer />
+        </StoreProvider>
       </body>
     </html>
   )

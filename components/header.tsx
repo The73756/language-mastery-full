@@ -1,10 +1,12 @@
+'use client'
+
 import Link from 'next/link'
 import { Icon } from '@/components/shared/icon'
 import { Routes } from '@/types/routes'
-import { getHeaderLinks } from '@/utils/header'
+import { useHeaderLinks } from '@/utils/header'
 
 export const Header = () => {
-  const links = getHeaderLinks()
+  const links = useHeaderLinks()
 
   return (
     <header className="h-header bg-primary text-white">

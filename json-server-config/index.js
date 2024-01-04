@@ -23,7 +23,7 @@ index.post('/login', (req, res) => {
     const { users = [] } = db
 
     const userFromBd = users.find(
-      (user) => user.username === username && user.password === password
+      (user) => user.username === username && user.password === password,
     )
 
     if (userFromBd) {
@@ -37,8 +37,10 @@ index.post('/login', (req, res) => {
   }
 })
 
+const protectedRoutes = ['/admin']
+
 index.use((req, res, next) => {
-  if (!req.headers.authorization) {
+  if (protectedRoutes.includes(req.url) && !req.headers.authorization) {
     return res.status(403).json({ message: 'AUTH ERROR' })
   }
 
