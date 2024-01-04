@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  body {
+    @apply font-montserrat bg-bg;
+  }
+
+  /*.body-height {*/
+  /*  @apply h-[calc(100vh-70px-110px)] md:h-[calc(100vh-70px-180px)];*/
+  /*}*/
+
+  .icon {
+    /* reset styles and prevent icon from being selected */
+    @apply select-none fill-current inline-block text-inherit box-content;
+  }
+
+  .icon[data-axis*='x'] {
+    /* scale horizontally */
+    @apply w-[1em];
+  }
+
+  .icon[data-axis*='y'] {
+    /* scale vertically */
+    @apply h-[1em];
+  }
+
+  .embla-slide {
+    flex: 0 0 45%;
+    min-width: 0;
+  }
+
+  @media (max-width: 1080px) {
+    .embla-slide {
+      flex: 0 0 510px;
+    }
+  }
+  @media (max-width: 648px) {
+    .embla-slide {
+      flex: 0 0 90%;
+    }
+  }
+}
