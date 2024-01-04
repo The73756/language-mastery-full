@@ -1,6 +1,7 @@
 import { cva, VariantProps } from 'class-variance-authority'
 import clsx from 'clsx'
-import { ChangeEvent, InputHTMLAttributes, PropsWithChildren } from 'react'
+import { InputHTMLAttributes, PropsWithChildren } from 'react'
+import { FieldError, UseFormRegisterReturn } from 'react-hook-form'
 
 const inputVariants = cva(
   'h-58 rounded-2xl overflow-hidden text-16-700 block outline-accent focus-within:outline',
@@ -10,6 +11,10 @@ const inputVariants = cva(
         white: 'text-primary bg-white',
         primary: 'bg-primary text-white ',
       },
+      isError: {
+        true: 'text-[#e64646] ',
+        false: '',
+      },
     },
     defaultVariants: {
       preset: 'primary',
@@ -18,10 +23,11 @@ const inputVariants = cva(
 )
 
 export interface InputProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange'>,
+  extends InputHTMLAttributes<HTMLInputElement>,
     VariantProps<typeof inputVariants> {
   inputClass?: string
-  onChange?: (value: string) => void
+  error?: FieldError
+  register: UseFormRegisterReturn<string>
 }
 
 export const Input = ({
@@ -31,23 +37,24 @@ export const Input = ({
   inputClass,
   children,
   onChange,
+  error,
+  register,
   ...props
 }: PropsWithChildren<InputProps>) => {
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    onChange?.(e.target.value)
-  }
-
   return (
-    <label className={inputVariants({ preset, className })}>
-      <input
-        onChange={handleChange}
-        className={clsx([
-          'focus:outline-none px-4 w-full h-full placeholder:text-current placeholder:opacity-85 bg-transparent',
-          inputClass,
-        ])}
-        {...props}
-      />
-      {children}
-    </label>
+    <div>
+      <label className={inputVariants({ preset, className, isError: Boolean(error) })}>
+        <input
+          {...register}
+          className={clsx([
+            'focus:outline-none px-4 w-full h-full placeholder:text-current placeholder:opacity-85 bg-transparent',
+            inputClass,
+          ])}
+          {...props}
+        />
+        {children}
+      </label>
+      {error && <p className=" text-error-light text-14-400 mt-1">{error.message}</p>}
+    </div>
   )
 }

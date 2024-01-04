@@ -2,37 +2,33 @@
 
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { FormEvent } from 'react'
-import { useSelector } from 'react-redux'
+import { SubmitHandler, useForm } from 'react-hook-form'
 import { Button } from '@/components/shared/button'
 import { FormWrapper } from '@/components/shared/form-wrapper'
 import { Input } from '@/components/shared/input'
 import { InputPassword } from '@/components/shared/input-password'
+import { passwordRule, usernameRule } from '@/helpers/validate'
 import { useAppDispatch } from '@/hooks/app-dispatch'
-import { selectUserPassword, selectUserUsername } from '@/store/user/selectors/user-selector'
 import { loginByUsername } from '@/store/user/service/login-by-username'
-import { userActions } from '@/store/user/slice/user-slice'
 import { Routes } from '@/types/routes'
 
-export const AuthForm = () => {
-  const username = useSelector(selectUserUsername)
-  const password = useSelector(selectUserPassword)
-  const router = useRouter()
+interface Inputs {
+  username: string
+  password: string
+}
 
+export const AuthForm = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Inputs>()
+  const router = useRouter()
   const dispatch = useAppDispatch()
 
-  const onChangeUsername = (value: string) => {
-    dispatch(userActions.setUsername(value))
-  }
-
-  const onChangePassword = (value: string) => {
-    dispatch(userActions.setPassword(value))
-  }
-
-  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
     try {
-      await dispatch(loginByUsername({ username, password }))
+      await dispatch(loginByUsername(data))
       router.push(Routes.HOME)
     } catch (error) {
       console.log('auth-form [onSubmit]', error)
@@ -41,19 +37,19 @@ export const AuthForm = () => {
   }
 
   return (
-    <FormWrapper title="Вход" onSubmit={onSubmit}>
+    <FormWrapper title="Вход" onSubmit={handleSubmit(onSubmit)}>
       <div className="flex flex-col gap-3 md:gap-5 mb-7">
         <Input
-          value={username}
-          onChange={onChangeUsername}
+          register={register('username', usernameRule)}
+          error={errors.username}
           preset="white"
           type="text"
           autoComplete="name"
           placeholder="Имя пользователя"
         />
         <InputPassword
-          value={password}
-          onChange={onChangePassword}
+          register={register('password', passwordRule)}
+          error={errors.password}
           preset="white"
           autoComplete="current-password"
           placeholder="Пароль"

@@ -17,6 +17,10 @@ const config: Config = {
           DEFAULT: '#ff6b6b',
           hover: '#dc5151',
         },
+        'error': {
+          DEFAULT: '#e64646',
+          light: '#ff9191',
+        },
         'gray': '#a0a5b6',
         'light-blue': '#e8edf3',
         'bg': '#fff',
