@@ -2,14 +2,9 @@
 
 import useEmblaCarousel from 'embla-carousel-react'
 import { Card } from '@/components/card'
-import { BenefitsCard } from '@/types/benefits'
+import { ArticleCard } from '@/types/article'
 
-interface CardBlockProps {
-  cards: BenefitsCard[]
-  title: string
-}
-
-export const CardBlock = ({ cards, title }: CardBlockProps) => {
+export const CardBlock = ({ cards, title }: ArticleCard) => {
   const [emblaRef] = useEmblaCarousel({
     active: false,
     breakpoints: {

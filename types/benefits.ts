@@ -1,4 +1,5 @@
 export interface BenefitsCard {
+  id: number
   title: string
   duration: string
   benefits: string[]

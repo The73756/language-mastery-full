@@ -1,10 +1,23 @@
 import { Metadata } from 'next'
 import { AdminBlock } from '@/components/admin/admin-block'
+import { Article } from '@/types/article'
 
-export default function Admin() {
+async function getData() {
+  const res = await fetch(process.env.NEXT_PUBLIC_API_URL + '/articles?_sort=position')
+
+  if (!res.ok) {
+    throw new Error('Failed to fetch data')
+  }
+
+  return res.json()
+}
+
+export default async function Admin() {
+  const data = (await getData()) as Article[]
+
   return (
     <div className="container pt-12 lg:pt-20">
-      <AdminBlock />
+      <AdminBlock serverData={data} />
     </div>
   )
 }

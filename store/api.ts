@@ -3,7 +3,7 @@
 import axios from 'axios'
 import { USER_LOCAL_STORAGE_KEY } from '@/constants/local-storage'
 
-const baseURL = 'http://localhost:5000'
+const baseURL = process.env.NEXT_PUBLIC_API_URL
 
 let headers = {}
 

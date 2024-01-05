@@ -5,10 +5,12 @@ export interface SpritesMap {
     | 'check'
     | 'cross'
     | 'crown'
+    | 'delete'
     | 'eye-closed'
     | 'eye'
     | 'lightning'
     | 'logo-colored'
+    | 'updated'
 }
 export const SPRITES_META: {
   [Key in keyof SpritesMap]: {
@@ -51,6 +53,11 @@ export const SPRITES_META: {
         width: 70,
         height: 62,
       },
+      'delete': {
+        viewBox: '0 0 384 470',
+        width: 384,
+        height: 470,
+      },
       'eye-closed': {
         viewBox: '0 0 20 16',
         width: 20,
@@ -70,6 +77,11 @@ export const SPRITES_META: {
         viewBox: '0 0 64 50',
         width: 64,
         height: 50,
+      },
+      'updated': {
+        viewBox: '0 0 512 434',
+        width: 512,
+        height: 434,
       },
     },
   },

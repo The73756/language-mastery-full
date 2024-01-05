@@ -1,22 +1,64 @@
 'use client'
 
-import { useState } from 'react'
+import { useForm } from 'react-hook-form'
 import { AdminBlockControl } from '@/components/admin/admin-block-control'
 import { AdminBlockWrapper } from '@/components/admin/admin-block-wrapper'
 import { Dropdown, DropdownOption } from '@/components/shared/dropdown'
 import { Input } from '@/components/shared/input'
 import { Textarea } from '@/components/shared/textarea'
+import { ArticleText } from '@/types/article'
 
-export const AdminTextBlock = () => {
-  const dropdownOptions: DropdownOption[] = [
-    { id: 1, value: 'left', label: 'Изображение слева' },
-    { id: 2, value: 'right', label: 'Изображение справа' },
-  ]
+interface Inputs {
+  imageUrl: string
+  title: string
+  subtitle: string
+  buttonText: string
+  direction: string
+  selectedOption: DropdownOption | null
+  text: string
+}
 
-  const [selectedOption, setSelectedOption] = useState<DropdownOption | null>(null)
+const dropdownOptions: DropdownOption[] = [
+  { id: 1, value: 'left', label: 'Изображение слева' },
+  { id: 2, value: 'right', label: 'Изображение справа' },
+]
+
+export const AdminTextBlock = ({
+  imageUrl,
+  title,
+  subtitle,
+  buttonText,
+  direction,
+  text,
+}: ArticleText) => {
+  const defaultOption = dropdownOptions.find((el) => el.value === direction) || null
+
+  const {
+    register,
+    setValue,
+    watch,
+    formState: { dirtyFields, isDirty },
+    reset,
+  } = useForm<Inputs>({
+    defaultValues: {
+      imageUrl,
+      title,
+      subtitle,
+      buttonText,
+      direction,
+      text,
+      selectedOption: defaultOption,
+    },
+  })
+
+  const selectedOption = watch('selectedOption')
 
   const handleSelect = (el: DropdownOption) => {
-    setSelectedOption(el)
+    setValue('selectedOption', el, { shouldDirty: true })
+  }
+
+  const handleReset = () => {
+    reset()
   }
 
   return (
@@ -24,25 +66,64 @@ export const AdminTextBlock = () => {
       <form className="flex flex-col gap-3">
         <div className="flex flex-wrap gap-5">
           <div className="flex w-full max-lg:flex-wrap gap-4 lg:gap-5 *:flex-[100%] md:*:flex-[calc(50%-40px)] lg:*:w-full">
-            <Input placeholder="Ссылка на изображение" />
-            <Input placeholder="Заголовок" />
-            <Input placeholder="Подзаголовок" />
+            <Input
+              isAdmin
+              isModified={dirtyFields.imageUrl}
+              register={register('imageUrl')}
+              placeholder="Ссылка на изображение"
+            />
+            <Input
+              isAdmin
+              isModified={dirtyFields.title}
+              register={register('title')}
+              placeholder="Заголовок"
+            />
+            <Input
+              isAdmin
+              isModified={dirtyFields.subtitle}
+              register={register('subtitle')}
+              placeholder="Подзаголовок"
+            />
             <Dropdown
               selectedOption={selectedOption}
               onSelect={handleSelect}
               options={dropdownOptions}
               placeholder="Направление"
+              isModified={Boolean(dirtyFields.selectedOption)}
             />
           </div>
 
           <div className="flex w-full flex-col gap-5">
             <div className="flex max-md:flex-wrap lg:w-1/2 gap-5 *:w-full">
-              <Input placeholder="Кнопка действия текст" />
-              <Input placeholder="Кнопка действия ссылка" />
+              <Input
+                isAdmin
+                isModified={dirtyFields.buttonText}
+                register={register('buttonText')}
+                placeholder="Кнопка действия текст"
+              />
+              <Input
+                isAdmin
+                isModified={dirtyFields.direction}
+                register={register('direction')}
+                placeholder="Кнопка действия ссылка"
+              />
             </div>
             <div className="flex flex-wrap h-full justify-between items-end">
-              <Textarea placeholder="Текст" className="block w-full max-lg:mb-10 lg:w-1/2" />
-              <AdminBlockControl className="ml-auto" />
+              <div className="w-full max-lg:mb-10 lg:w-1/2">
+                <Textarea
+                  isAdmin
+                  isModified={dirtyFields.text}
+                  register={register('text')}
+                  placeholder="Текст"
+                  className="w-full"
+                />
+              </div>
+
+              <AdminBlockControl
+                isModified={isDirty}
+                className="ml-auto"
+                handleReject={handleReset}
+              />
             </div>
           </div>
         </div>

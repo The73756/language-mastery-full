@@ -9,6 +9,7 @@ const buttonIconVariants = cva(
       preset: {
         accent: 'bg-accent outline-primary hover:bg-accent-hover',
         primary: 'bg-primary outline-accent hover:bg-primary-hover',
+        success: 'bg-green outline-accent hover:bg-green-hover',
       },
       disabled: {
         true: 'bg-gray cursor-not-allowed',

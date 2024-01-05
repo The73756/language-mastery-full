@@ -1,12 +1,12 @@
 import clsx from 'clsx'
-import { InputHTMLAttributes } from 'react'
 import { Icon } from '@/components/shared/icon'
+import { InputProps } from '@/components/shared/input'
 
-interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
+interface CheckboxProps extends Omit<InputProps, 'isAdmin'> {
   wrapperClass?: string
 }
 
-export const Checkbox = ({ wrapperClass, ...props }: CheckboxProps) => {
+export const Checkbox = ({ wrapperClass, register, ...props }: CheckboxProps) => {
   return (
     <label
       className={clsx([
@@ -14,7 +14,7 @@ export const Checkbox = ({ wrapperClass, ...props }: CheckboxProps) => {
         wrapperClass,
       ])}
     >
-      <input {...props} type="checkbox" className="peer sr-only" />
+      <input {...register} {...props} type="checkbox" className="peer sr-only" />
       <span className="absolute peer-checked:bg-accent border-2 rounded-full w-7 h-7 text-transparent peer-checked:text-white border-accent inset-0 text-white transition-colors flex items-center justify-center bg-transparent" />
       <Icon
         name="shared/check"

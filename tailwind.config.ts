@@ -21,6 +21,10 @@ const config: Config = {
           DEFAULT: '#e64646',
           light: '#ff9191',
         },
+        'green': {
+          DEFAULT: '#259f30',
+          hover: '#1e8c27',
+        },
         'gray': '#a0a5b6',
         'light-blue': '#e8edf3',
         'bg': '#fff',

@@ -1,16 +1,7 @@
 import clsx from 'clsx'
 import Image from 'next/image'
 import { ButtonLink } from '@/components/shared/button-link'
-
-interface TextBlockProps {
-  imageUrl: string
-  title: string
-  subtitle: string
-  buttonText: string
-  buttonLink: string
-  text: string
-  direction: 'left' | 'right'
-}
+import { ArticleText } from '@/types/article'
 
 export const TextBlock = ({
   imageUrl,
@@ -20,8 +11,8 @@ export const TextBlock = ({
   buttonLink,
   text,
   direction,
-}: TextBlockProps) => {
-  const textArray = text.split('/n')
+}: ArticleText) => {
+  const textArray = text?.split('/n') || []
 
   return (
     <div>
@@ -34,7 +25,7 @@ export const TextBlock = ({
       >
         <Image
           className="rounded-5 max-xl:w-auto max-xl:h-[450px] max-lg:h-auto max-lg:w-full"
-          src={imageUrl}
+          src={imageUrl || ''}
           alt={'изображение для ' + title}
           width={512}
           height={512}
@@ -48,7 +39,11 @@ export const TextBlock = ({
               <p key={index}>{text}</p>
             ))}
           </div>
-          <ButtonLink className="mt-auto w-fit max-xl:mt-4" text={buttonText} href={buttonLink} />
+          <ButtonLink
+            className="mt-auto w-fit max-xl:mt-4"
+            text={buttonText || ''}
+            href={buttonLink || ''}
+          />
         </div>
       </div>
     </div>

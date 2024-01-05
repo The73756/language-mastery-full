@@ -35,7 +35,9 @@ export const RegistrationForm = () => {
       return
     }
 
-    const authPromise = dispatch(registrationByUsername(data)).unwrap()
+    const authPromise = dispatch(
+      registrationByUsername({ username: data.username, password: data.password }),
+    ).unwrap()
 
     try {
       await toast.promise(authPromise, {

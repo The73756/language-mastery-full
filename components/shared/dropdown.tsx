@@ -4,6 +4,7 @@ import { Listbox, Transition } from '@headlessui/react'
 import clsx from 'clsx'
 import { Fragment } from 'react'
 import { Icon } from '@/components/shared/icon'
+import { ModifiedBadge } from '@/components/shared/modified-badge'
 
 export interface DropdownOption {
   id: number
@@ -17,6 +18,7 @@ interface DropdownProps {
   selectedOption: DropdownOption | null
   onSelect: (el: DropdownOption) => void
   isAccent?: boolean
+  isModified?: boolean
   className?: string
 }
 
@@ -27,15 +29,17 @@ export const Dropdown = ({
   onSelect,
   isAccent,
   className,
+  isModified,
 }: DropdownProps) => {
   const buttonText = selectedOption ? selectedOption.label : placeholder
 
   return (
     <Listbox value={selectedOption} onChange={onSelect}>
       <div className={clsx(['relative', className])}>
-        <Listbox.Button className="h-58 outline-2 outline-accent text-16-700 flex items-center justify-between hover:bg-primary-hover text-left px-4 transition-colors bg-primary text-white w-full rounded-2xl">
+        <Listbox.Button className="h-58 relative outline-2 outline-accent text-16-700 flex items-center justify-between hover:bg-primary-hover text-left px-4 transition-colors bg-primary text-white w-full rounded-2xl">
           <span className={selectedOption ? '' : 'opacity-80'}>{buttonText}</span>
           <Icon name="shared/arrow" className="ui-open:rotate-0 rotate-180" />
+          <ModifiedBadge isModified={Boolean(isModified)} />
         </Listbox.Button>
         <Transition
           as={Fragment}

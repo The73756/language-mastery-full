@@ -1,78 +1,16 @@
-import { CardBlock } from '@/components/card-block'
-import { PromoBlock } from '@/components/promo-block'
-import { TextBlock } from '@/components/text-block'
-import { BenefitsCard } from '@/types/benefits'
+import { ArticleList } from '@/components/article-list'
+import { Article } from '@/types/article'
 
-const cards: BenefitsCard[] = [
-  {
-    title: 'Мастер',
-    duration: '12 месяцев',
-    benefits: [
-      'Индивидуальные уроки с экспертами для подготовки к международным сверхсложным испытаниям',
-      'Онлайн-поддержка вне уроков и доступ к эксклюзивным материалам',
-      'Персональный тренинг по развитию навыков презентации и переговоров',
-    ],
-    price: '30000 руб',
-    isPopular: false,
-    icon: 'crown',
-  },
-  {
-    title: 'Начинающий',
-    duration: '3 месяца',
-    benefits: [
-      'Интенсивные уроки с носителями языка',
-      'Доступ к онлайн-ресурсам и обучающим материалам',
-      'Участие в онлайн-группах и обществе "LanguageMastery Hub"',
-    ],
-    price: '20000 руб',
-    isPopular: true,
-    icon: 'lightning',
-  },
-  {
-    title: 'Эксперт',
-    duration: '6 месяцев',
-    benefits: [
-      'Персональные уроки с опытными преподавателями',
-      'Доступ к специализированным курсам и практическим занятиям',
-      'Индивидуальное обучение и развитие навыков общения',
-    ],
-    price: '25000 руб',
-    isPopular: false,
-    icon: 'lightning',
-  },
-]
+async function getData() {
+  const res = await fetch(process.env.NEXT_PUBLIC_API_URL + '/articles?_sort=position')
+  if (!res.ok) {
+    throw new Error('Failed to fetch data')
+  }
+  return res.json()
+}
 
-export default function Home() {
-  return (
-    <div className="flex flex-col gap-14 md:gap-[80px] container pt-14 xl:pt-[100px] pb-20">
-      <PromoBlock
-        imageUrl="/images/promo-1.png"
-        title="Наш лучший курс только сегодня"
-        subtitle="Успей записаться!"
-        buttonText="20000 руб"
-      />
+export default async function Home() {
+  const data = (await getData()) as Article[]
 
-      <TextBlock
-        title="О нас"
-        subtitle='Добро пожаловать в "LanguageMastery"'
-        text="Инновационный центр обучения языкам, который стремится изменить ваш подход к изучению и владению иностранными языками. Мы предлагаем уникальные программы, разработанные с использованием передовых методик и подкрепленные современными технологиями, чтобы помочь вам достичь максимальных результатов в овладении языками. /n Наше обучение основано на интенсивных курсах, персонализированных программам и обширном онлайн-сообществе, предлагая вам возможность достичь мастерства в языковых навыках. Мы стремимся предоставить вам не просто знание языка, а возможность использовать его с уверенностью и свободой."
-        direction="left"
-        buttonText="Вперед!"
-        buttonLink="/about"
-        imageUrl="/images/text-1.jpg"
-      />
-
-      <CardBlock title="Наш прайс" cards={cards} />
-
-      <TextBlock
-        title="О нас"
-        subtitle='Добро пожаловать в "LanguageMastery"'
-        text="Инновационный центр обучения языкам, который стремится изменить ваш подход к изучению и владению иностранными языками. Мы предлагаем уникальные программы, разработанные с использованием передовых методик и подкрепленные современными технологиями, чтобы помочь вам достичь максимальных результатов в овладении языками. /n Наше обучение основано на интенсивных курсах, персонализированных программам и обширном онлайн-сообществе, предлагая вам возможность достичь мастерства в языковых навыках. Мы стремимся предоставить вам не просто знание языка, а возможность использовать его с уверенностью и свободой."
-        direction="right"
-        buttonText="Вперед!"
-        buttonLink="/about"
-        imageUrl="/images/text-1.jpg"
-      />
-    </div>
-  )
+  return <ArticleList serverData={data} />
 }

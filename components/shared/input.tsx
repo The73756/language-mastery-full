@@ -2,6 +2,7 @@ import { cva, VariantProps } from 'class-variance-authority'
 import clsx from 'clsx'
 import { InputHTMLAttributes, PropsWithChildren } from 'react'
 import { FieldError, UseFormRegisterReturn } from 'react-hook-form'
+import { ModifiedBadge } from '@/components/shared/modified-badge'
 
 const inputVariants = cva(
   'h-58 rounded-2xl overflow-hidden text-16-700 block outline-accent focus-within:outline',
@@ -13,6 +14,14 @@ const inputVariants = cva(
       },
       isError: {
         true: 'text-[#e64646] ',
+        false: '',
+      },
+      isAdmin: {
+        true: 'text-opacity-70 focus-within:placeholder-white focus-within:text-white',
+        false: '',
+      },
+      isModified: {
+        true: 'text-opacity-[100%]',
         false: '',
       },
     },
@@ -28,6 +37,7 @@ export interface InputProps
   inputClass?: string
   error?: FieldError
   register: UseFormRegisterReturn<string>
+  isModified?: boolean
 }
 
 export const Input = ({
@@ -39,11 +49,23 @@ export const Input = ({
   onChange,
   error,
   register,
+  isAdmin,
+  isModified,
   ...props
 }: PropsWithChildren<InputProps>) => {
   return (
-    <div>
-      <label className={inputVariants({ preset, className, isError: Boolean(error) })}>
+    <div className="relative">
+      <ModifiedBadge isModified={Boolean(isModified)} />
+
+      <label
+        className={inputVariants({
+          preset,
+          className,
+          isError: Boolean(error),
+          isAdmin,
+          isModified,
+        })}
+      >
         <input
           {...register}
           className={clsx([
