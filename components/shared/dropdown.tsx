@@ -7,7 +7,7 @@ import { Icon } from '@/components/shared/icon'
 import { ModifiedBadge } from '@/components/shared/modified-badge'
 
 export interface DropdownOption {
-  id: number
+  id: string
   value: string
   label: string
 }

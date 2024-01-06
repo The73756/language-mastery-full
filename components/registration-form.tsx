@@ -31,7 +31,7 @@ export const RegistrationForm = () => {
 
   const onSubmit = async (data: Inputs) => {
     if (data.password !== data.confirmPassword) {
-      alert('Passwords do not match')
+      toast.error('Пароли не совпадают!')
       return
     }
 

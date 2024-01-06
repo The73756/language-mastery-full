@@ -4,17 +4,17 @@ import { Dropdown, DropdownOption } from '@/components/shared/dropdown'
 
 const dropdownOptions: DropdownOption[] = [
   {
-    id: 1,
+    id: '1',
     label: 'Промо блок',
     value: 'promo',
   },
   {
-    id: 2,
+    id: '2',
     label: 'Блок с текстом',
     value: 'promo',
   },
   {
-    id: 3,
+    id: '3',
     label: 'Блок с тремя карточками',
     value: 'promo',
   },

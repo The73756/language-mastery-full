@@ -9,6 +9,7 @@ interface AdminBlockControlProps {
   handleReject?: () => void
   className?: string
   isModified?: boolean
+  showBlockControl?: boolean
 }
 
 export const AdminBlockControl = ({
@@ -19,28 +20,33 @@ export const AdminBlockControl = ({
   handleAccept,
   className,
   isModified,
+  showBlockControl = true,
 }: AdminBlockControlProps) => {
   return (
     <div className={clsx(['flex gap-2.5', className])}>
-      <ButtonIcon
-        type="button"
-        onClick={handleMoveUp}
-        preset="primary"
-        title="Переместить вверх"
-        iconName="shared/arrow"
-      />
-      <ButtonIcon
-        type="button"
-        onClick={handleMoveDown}
-        title="Переместить вниз"
-        preset="primary"
-        iconName="shared/arrow"
-        iconClass="rotate-180"
-      />
-      {isModified && (
+      {showBlockControl && (
         <>
           <ButtonIcon
             type="button"
+            onClick={handleMoveUp}
+            preset="primary"
+            title="Переместить вверх"
+            iconName="shared/arrow"
+          />
+          <ButtonIcon
+            type="button"
+            onClick={handleMoveDown}
+            title="Переместить вниз"
+            preset="primary"
+            iconName="shared/arrow"
+            iconClass="rotate-180"
+          />
+        </>
+      )}
+      {isModified && (
+        <>
+          <ButtonIcon
+            type="submit"
             title="Сохранить"
             onClick={handleAccept}
             preset="success"
@@ -55,13 +61,15 @@ export const AdminBlockControl = ({
           />
         </>
       )}
-      <ButtonIcon
-        type="button"
-        onClick={handleRemove}
-        preset="accent"
-        title="Удалить"
-        iconName="shared/delete"
-      />
+      {showBlockControl && (
+        <ButtonIcon
+          type="button"
+          onClick={handleRemove}
+          preset="accent"
+          title="Удалить"
+          iconName="shared/delete"
+        />
+      )}
     </div>
   )
 }

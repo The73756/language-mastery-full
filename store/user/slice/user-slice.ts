@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { USER_COOKIE_KEY, USER_LOCAL_STORAGE_KEY } from '@/constants/local-storage'
+import { getCookieValue } from '@/helpers/getCookieValue'
 import { registrationByUsername } from '@/store/user/service/registration-by-username'
 import { User, UserSchema } from '@/types/user'
 import { loginByUsername } from '../service/login-by-username'
@@ -16,14 +17,24 @@ export const userSlice = createSlice({
     setAuthData: (state, action: PayloadAction<User>) => {
       state.authData = action.payload
       if (typeof window !== 'undefined') {
-        document.cookie = `${USER_COOKIE_KEY}=true; path=/`
+        const date = new Date()
+        date.setMonth(date.getMonth() + 1)
+        document.cookie = `${USER_COOKIE_KEY}=true; expires=${date.toUTCString()}; path=/`
       }
     },
     initUserData: (state) => {
       const user = localStorage.getItem(USER_LOCAL_STORAGE_KEY)
+      const cookieValue = getCookieValue(USER_COOKIE_KEY)
+
       if (user) {
         state.authData = JSON.parse(user)
       }
+
+      if (cookieValue === null || cookieValue === 'false') {
+        state.authData = undefined
+        localStorage.removeItem(USER_LOCAL_STORAGE_KEY)
+      }
+
       state._inited = true
     },
     logout: (state) => {

@@ -1,14 +1,20 @@
 'use client'
 
 import { useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
+import { AdminBlockControl } from '@/components/admin/admin-block-control'
 import { Checkbox } from '@/components/shared/checkbox'
 import { Dropdown, DropdownOption } from '@/components/shared/dropdown'
 import { Input } from '@/components/shared/input'
 import { ModifiedBadge } from '@/components/shared/modified-badge'
 import { Textarea } from '@/components/shared/textarea'
-import { BenefitsCard } from '@/types/benefits'
+import { useAppDispatch } from '@/hooks/app-dispatch'
+import { updateArticleCardById } from '@/store/service/update-article-card'
+import { BenefitsCard, CardIcon } from '@/types/benefits'
 
-type AdminCardProps = BenefitsCard
+interface AdminCardProps extends BenefitsCard {
+  articleId: string
+}
 
 interface Inputs {
   title: string
@@ -21,17 +27,17 @@ interface Inputs {
 
 const dropdownOptions: DropdownOption[] = [
   {
-    id: 1,
+    id: '1',
     value: 'crown',
     label: 'Корона',
   },
   {
-    id: 2,
+    id: '2',
     value: 'lightning',
     label: 'Молния',
   },
   {
-    id: 3,
+    id: '3',
     value: 'cap',
     label: 'Шапка',
   },
@@ -44,15 +50,20 @@ export const AdminCard = ({
   isPopular,
   price,
   duration,
+  articleId,
+  id,
 }: AdminCardProps) => {
   const benefitsString = benefits.join('; \n\n')
   const defaultIcon = dropdownOptions.find((el) => el.value === icon) || null
+  const dispatch = useAppDispatch()
 
   const {
     register,
     watch,
     setValue,
-    formState: { dirtyFields },
+    reset,
+    handleSubmit,
+    formState: { dirtyFields, isDirty },
   } = useForm<Inputs>({
     defaultValues: {
       title,
@@ -70,8 +81,27 @@ export const AdminCard = ({
     setValue('icon', el, { shouldDirty: true })
   }
 
+  const handleUpdateCard = async (cardData: Inputs) => {
+    try {
+      const benefits = cardData.benefits.split(';').map((el) => el.trim())
+      const data = { ...cardData, benefits, icon: cardData.icon?.value as CardIcon }
+
+      console.log('admin-card [handleUpdateCard]', data)
+      await dispatch(updateArticleCardById({ articleId, cardId: id, cardData: data }))
+      reset(cardData)
+    } catch (error) {
+      console.log('admin-promo-block [handleUpdateArticle]', error)
+      if (error instanceof Error) {
+        toast.error(error.message)
+      }
+    }
+  }
+
   return (
-    <div className="rounded-3xl max-md:p-4 max-xl:p-6 p-12 border-2 border-primary w-full flex flex-col gap-4">
+    <form
+      onSubmit={handleSubmit(handleUpdateCard)}
+      className="rounded-3xl max-md:p-4 max-xl:p-6 p-12 border-2 border-primary w-full flex flex-col gap-4"
+    >
       <Dropdown
         isModified={Boolean(dirtyFields.icon)}
         selectedOption={selectedOption}
@@ -112,6 +142,13 @@ export const AdminCard = ({
         <Checkbox register={register('isPopular')} />
         <span>Популярное</span>
       </label>
-    </div>
+
+      <AdminBlockControl
+        className="ml-auto"
+        handleReject={() => reset()}
+        isModified={isDirty}
+        showBlockControl={false}
+      />
+    </form>
   )
 }

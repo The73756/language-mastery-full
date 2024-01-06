@@ -37,10 +37,44 @@ index.post('/login', (req, res) => {
   }
 })
 
-const protectedRoutes = ['/admin']
+index.patch('/articles/:articleId/cards/:cardId', (req, res) => {
+  try {
+    const { articleId, cardId } = req.params
+    const cardData = req.body
+    const db = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'db.json'), 'UTF-8'))
+    const { articles = [] } = db
+
+    const article = articles.find((article) => String(article.id) === String(articleId))
+    if (!article || article.type !== 'CARD') {
+      return res.status(404).json({ message: 'Article not found' })
+    }
+
+    const card = article.cards.find((card) => String(card.id) === String(cardId))
+    if (!card) {
+      return res.status(404).json({ message: 'Card not found' })
+    }
+
+    // Merge existing card data with new card data
+    const updatedCard = { ...card, ...cardData }
+
+    // Replace the old card with the updated card
+    const cardIndex = article.cards.indexOf(card)
+    article.cards[cardIndex] = updatedCard
+
+    // Write the updated data back to the database
+    fs.writeFileSync(path.resolve(__dirname, 'db.json'), JSON.stringify(db))
+
+    return res.json(updatedCard)
+  } catch (error) {
+    console.log(error)
+    return res.status(500).json({ message: error.message })
+  }
+})
+
+const protectedRoutes = [/^\/articles\/\d+$/, /^\/articles\/\d+\/cards\/\d+$/]
 
 index.use((req, res, next) => {
-  if (protectedRoutes.includes(req.url) && !req.headers.authorization) {
+  if (protectedRoutes.some((route) => route.test(req.url)) && !req.headers.authorization) {
     return res.status(403).json({ message: 'AUTH ERROR' })
   }
 

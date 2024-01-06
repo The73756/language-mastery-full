@@ -7,7 +7,7 @@ export const ArticleType = {
 } as const
 
 export interface ArticleBase {
-  id: number
+  id: string
   position: number
   type: keyof typeof ArticleType
 }
@@ -41,5 +41,7 @@ export type Article = ArticlePromo | ArticleText | ArticleCard
 
 export interface ArticleSchema {
   articleData: Article[]
+  isLoading: boolean
+  error?: string
   _inited: boolean
 }

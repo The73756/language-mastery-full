@@ -1,11 +1,14 @@
 'use client'
 
 import { useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
 import { AdminBlockControl } from '@/components/admin/admin-block-control'
 import { AdminBlockWrapper } from '@/components/admin/admin-block-wrapper'
 import { Dropdown, DropdownOption } from '@/components/shared/dropdown'
 import { Input } from '@/components/shared/input'
 import { Textarea } from '@/components/shared/textarea'
+import { useAppDispatch } from '@/hooks/app-dispatch'
+import { updateArticleById } from '@/store/service/update-article'
 import { ArticleText } from '@/types/article'
 
 interface Inputs {
@@ -13,8 +16,8 @@ interface Inputs {
   title: string
   subtitle: string
   buttonText: string
-  direction: string
-  selectedOption: DropdownOption | null
+  direction: DropdownOption | null
+  buttonLink: string
   text: string
 }
 
@@ -30,7 +33,10 @@ export const AdminTextBlock = ({
   buttonText,
   direction,
   text,
+  buttonLink,
+  id,
 }: ArticleText) => {
+  const dispatch = useAppDispatch()
   const defaultOption = dropdownOptions.find((el) => el.value === direction) || null
 
   const {
@@ -39,31 +45,42 @@ export const AdminTextBlock = ({
     watch,
     formState: { dirtyFields, isDirty },
     reset,
+    handleSubmit,
   } = useForm<Inputs>({
     defaultValues: {
       imageUrl,
       title,
       subtitle,
       buttonText,
-      direction,
       text,
-      selectedOption: defaultOption,
+      buttonLink,
+      direction: defaultOption,
     },
   })
 
-  const selectedOption = watch('selectedOption')
+  const selectedOption = watch('direction')
 
   const handleSelect = (el: DropdownOption) => {
-    setValue('selectedOption', el, { shouldDirty: true })
+    setValue('direction', el, { shouldDirty: true })
   }
 
-  const handleReset = () => {
-    reset()
+  const handleUpdateArticle = async (articleData: Inputs) => {
+    try {
+      const data = { ...articleData, direction: articleData.direction?.value }
+
+      await dispatch(updateArticleById({ id, articleData: data }))
+      reset(articleData)
+    } catch (error) {
+      console.log('admin-text-block [handleUpdateArticle]', error)
+      if (error instanceof Error) {
+        toast.error(error.message)
+      }
+    }
   }
 
   return (
     <AdminBlockWrapper title="Блок с изображением и текстом">
-      <form className="flex flex-col gap-3">
+      <form className="flex flex-col gap-3" onSubmit={handleSubmit(handleUpdateArticle)}>
         <div className="flex flex-wrap gap-5">
           <div className="flex w-full max-lg:flex-wrap gap-4 lg:gap-5 *:flex-[100%] md:*:flex-[calc(50%-40px)] lg:*:w-full">
             <Input
@@ -89,7 +106,7 @@ export const AdminTextBlock = ({
               onSelect={handleSelect}
               options={dropdownOptions}
               placeholder="Направление"
-              isModified={Boolean(dirtyFields.selectedOption)}
+              isModified={Boolean(dirtyFields.direction)}
             />
           </div>
 
@@ -103,8 +120,8 @@ export const AdminTextBlock = ({
               />
               <Input
                 isAdmin
-                isModified={dirtyFields.direction}
-                register={register('direction')}
+                isModified={dirtyFields.buttonLink}
+                register={register('buttonLink')}
                 placeholder="Кнопка действия ссылка"
               />
             </div>
@@ -122,7 +139,7 @@ export const AdminTextBlock = ({
               <AdminBlockControl
                 isModified={isDirty}
                 className="ml-auto"
-                handleReject={handleReset}
+                handleReject={() => reset}
               />
             </div>
           </div>
