@@ -1,4 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { addArticle } from '@/store/service/add-article'
+import { changeArticlePosition } from '@/store/service/change-position'
+import { deleteArticleById } from '@/store/service/delete-article'
 import { updateArticleById } from '@/store/service/update-article'
 import { updateArticleCardById } from '@/store/service/update-article-card'
 import { Article, ArticleSchema } from '@/types/article'
@@ -37,6 +40,7 @@ export const articleSlice = createSlice({
         state.isLoading = false
         state.error = action.payload
       })
+
       .addCase(updateArticleCardById.pending, (state) => {
         state.isLoading = true
       })
@@ -53,6 +57,41 @@ export const articleSlice = createSlice({
         }
       })
       .addCase(updateArticleCardById.rejected, (state, action) => {
+        state.isLoading = false
+        state.error = action.payload
+      })
+
+      .addCase(addArticle.pending, (state) => {
+        state.isLoading = true
+      })
+      .addCase(addArticle.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.articleData = [...state.articleData, action.payload]
+      })
+      .addCase(addArticle.rejected, (state, action) => {
+        state.isLoading = false
+        state.error = action.payload
+      })
+
+      .addCase(deleteArticleById.pending, (state) => {
+        state.isLoading = true
+      })
+      .addCase(deleteArticleById.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.articleData = state.articleData.filter((article) => article.id !== action.meta.arg)
+      })
+      .addCase(deleteArticleById.rejected, (state, action) => {
+        state.isLoading = false
+        state.error = action.payload
+      })
+
+      .addCase(changeArticlePosition.pending, (state) => {
+        state.isLoading = true
+      })
+      .addCase(changeArticlePosition.fulfilled, (state) => {
+        state.isLoading = false
+      })
+      .addCase(changeArticlePosition.rejected, (state, action) => {
         state.isLoading = false
         state.error = action.payload
       })

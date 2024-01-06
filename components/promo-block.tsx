@@ -1,11 +1,11 @@
-import Image from 'next/image'
 import { Button } from '@/components/shared/button'
+import { CustomImage } from '@/components/shared/custom-image'
 import { ArticlePromo } from '@/types/article'
 
 export const PromoBlock = ({ subtitle, buttonText, title, imageUrl }: ArticlePromo) => {
   return (
     <div className="relative text-white rounded-5 md:rounded-3xl overflow-hidden flex px-8 xl:px-32 max-md:py-10 h-[300px] md:h-[400px] items-center">
-      <Image
+      <CustomImage
         className="z-[-1] object-cover absolute inset-0 h-full"
         src={imageUrl || ''}
         alt="Промо изображение"

@@ -29,12 +29,16 @@ export interface ButtonProps
 
 export const Button = ({ text, disabled, preset, className, ...props }: ButtonProps) => {
   return (
-    <button
-      disabled={Boolean(disabled)}
-      className={buttonVariants({ preset, disabled, className })}
-      {...props}
-    >
-      {text}
-    </button>
+    <>
+      {text && (
+        <button
+          disabled={Boolean(disabled)}
+          className={buttonVariants({ preset, disabled, className })}
+          {...props}
+        >
+          {text}
+        </button>
+      )}
+    </>
   )
 }

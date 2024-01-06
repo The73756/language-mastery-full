@@ -12,7 +12,7 @@ interface Inputs {
   title: string
 }
 
-export const AdminCardBlock = ({ cards, title, id }: ArticleCard) => {
+export const AdminCardBlock = ({ cards, title, position, id }: ArticleCard) => {
   const dispatch = useAppDispatch()
   const {
     register,
@@ -59,6 +59,8 @@ export const AdminCardBlock = ({ cards, title, id }: ArticleCard) => {
       </div>
 
       <AdminBlockControl
+        articleId={id}
+        position={position}
         handleAccept={handleSubmit(handleUpdateArticle)}
         handleReject={() => reset}
         isModified={isDirty}

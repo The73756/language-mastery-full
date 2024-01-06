@@ -7,5 +7,5 @@ export interface BenefitsCard {
   benefits: string[]
   price: string
   isPopular: boolean
-  icon: CardIcon
+  icon?: CardIcon
 }

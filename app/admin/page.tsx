@@ -16,7 +16,7 @@ export default async function Admin() {
   const data = (await getData()) as Article[]
 
   return (
-    <div className="container pt-12 lg:pt-20">
+    <div className="h-full flex flex-col flex-1 container pt-12 lg:pt-20">
       <AdminBlock serverData={data} />
     </div>
   )

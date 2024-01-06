@@ -31,7 +31,9 @@ export const Card = ({
         Популярное
       </p>
       <div className="h-[200px] md:h-[250px] rounded-5 bg-current w-full mb-5 flex items-center justify-center">
-        <Icon className="text-[70px] text-white" name={('shared/' + icon) as AnyIconName} />
+        {icon && (
+          <Icon className="text-[70px] text-white" name={('shared/' + icon) as AnyIconName} />
+        )}
       </div>
       <div className="text-primary flex-1 flex flex-col items-start">
         <h3 className="text-26-700 md:text-36-700 mb-2">{title}</h3>

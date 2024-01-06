@@ -1,6 +1,6 @@
 import clsx from 'clsx'
-import Image from 'next/image'
 import { ButtonLink } from '@/components/shared/button-link'
+import { CustomImage } from '@/components/shared/custom-image'
 import { ArticleText } from '@/types/article'
 
 export const TextBlock = ({
@@ -23,7 +23,7 @@ export const TextBlock = ({
           direction === 'right' && 'flex-row-reverse',
         ])}
       >
-        <Image
+        <CustomImage
           className="rounded-5 max-xl:w-auto max-xl:h-[450px] max-lg:h-auto max-lg:w-full"
           src={imageUrl || ''}
           alt={'изображение для ' + title}

@@ -22,8 +22,8 @@ interface Inputs {
 }
 
 const dropdownOptions: DropdownOption[] = [
-  { id: 1, value: 'left', label: 'Изображение слева' },
-  { id: 2, value: 'right', label: 'Изображение справа' },
+  { id: '1', value: 'left', label: 'Изображение слева' },
+  { id: '2', value: 'right', label: 'Изображение справа' },
 ]
 
 export const AdminTextBlock = ({
@@ -34,6 +34,7 @@ export const AdminTextBlock = ({
   direction,
   text,
   buttonLink,
+  position,
   id,
 }: ArticleText) => {
   const dispatch = useAppDispatch()
@@ -137,6 +138,8 @@ export const AdminTextBlock = ({
               </div>
 
               <AdminBlockControl
+                articleId={id}
+                position={position}
                 isModified={isDirty}
                 className="ml-auto"
                 handleReject={() => reset}

@@ -37,8 +37,12 @@ export const ButtonLink = ({
   ...props
 }: ButtonLinkProps) => {
   return (
-    <a href={href} className={buttonLinkVariants({ preset, disabled, className })} {...props}>
-      {text}
-    </a>
+    <>
+      {text && (
+        <a href={href} className={buttonLinkVariants({ preset, disabled, className })} {...props}>
+          {text}
+        </a>
+      )}
+    </>
   )
 }

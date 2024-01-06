@@ -14,7 +14,14 @@ interface Inputs {
   buttonText: string
 }
 
-export const AdminPromoBlock = ({ imageUrl, title, subtitle, buttonText, id }: ArticlePromo) => {
+export const AdminPromoBlock = ({
+  imageUrl,
+  position,
+  title,
+  subtitle,
+  buttonText,
+  id,
+}: ArticlePromo) => {
   const dispatch = useAppDispatch()
   const {
     register,
@@ -72,7 +79,13 @@ export const AdminPromoBlock = ({ imageUrl, title, subtitle, buttonText, id }: A
           />
         </div>
 
-        <AdminBlockControl isModified={isDirty} className="ml-auto" handleReject={() => reset()} />
+        <AdminBlockControl
+          articleId={id}
+          position={position}
+          isModified={isDirty}
+          className="ml-auto"
+          handleReject={() => reset()}
+        />
       </form>
     </AdminBlockWrapper>
   )

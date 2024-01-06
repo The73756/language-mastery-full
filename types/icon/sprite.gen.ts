@@ -11,6 +11,8 @@ export interface SpritesMap {
     | 'lightning'
     | 'logo-colored'
     | 'updated'
+    | 'logo'
+    | 'no-image'
 }
 export const SPRITES_META: {
   [Key in keyof SpritesMap]: {
@@ -82,6 +84,16 @@ export const SPRITES_META: {
         viewBox: '0 0 512 434',
         width: 512,
         height: 434,
+      },
+      'logo': {
+        viewBox: '0 0 501 391',
+        width: 501,
+        height: 391,
+      },
+      'no-image': {
+        viewBox: '0 0 450 450',
+        width: 450,
+        height: 450,
       },
     },
   },

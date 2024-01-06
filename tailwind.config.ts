@@ -63,6 +63,9 @@ const config: Config = {
       borderRadius: {
         5: '20px',
       },
+      backgroundImage: {
+        'custom-gradient': 'linear-gradient(135deg, #dc5151 0%, #3e74dc 100%)',
+      },
     },
     screens: {
       sm: '480px',
