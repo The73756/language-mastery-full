@@ -35,7 +35,7 @@ export const CustomImage = ({ src, alt, width, height, className, ...props }: Cu
   }
 
   return (
-    <div className="relative w-full h-full" style={noImageClasses}>
+    <div className={clsx([className, 'relative'])} style={noImageClasses}>
       <Image
         src={src}
         alt={alt}

@@ -17,6 +17,15 @@ export const metadata: Metadata = {
   title: 'Language Mastery',
   description:
     'Инновационный центр обучения языкам, который стремится изменить ваш подход к изучению и владению иностранными языками.',
+  openGraph: {
+    title: 'Language Mastery',
+    description:
+      'Инновационный центр обучения языкам, который стремится изменить ваш подход к изучению и владению иностранными языками.',
+    type: 'website',
+    locale: 'ru_RU',
+    url: 'https://language-mastery.vercel.app/',
+    images: ['/preview.png'],
+  },
 }
 
 export default function RootLayout({ children }: { children: ReactNode }) {

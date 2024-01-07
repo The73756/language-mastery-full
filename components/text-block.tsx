@@ -22,7 +22,7 @@ export const TextBlock = ({
         ])}
       >
         <CustomImage
-          className="rounded-5 h-full object-cover max-xl:w-auto max-xl:h-[450px] max-lg:h-auto max-lg:w-full"
+          className="rounded-5 h-full object-cover max-xl:w-auto max-lg:h-full max-lg:w-[100%!important]"
           src={imageUrl || ''}
           alt={'изображение для ' + title}
           width={512}
