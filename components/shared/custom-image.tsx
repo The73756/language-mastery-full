@@ -52,6 +52,7 @@ export const CustomImage = ({ src, alt, width, height, className, ...props }: Cu
             'bg-custom-gradient bg-200% animate-gradient absolute inset-0 flex items-center text-white justify-center',
             className,
           ])}
+          aria-hidden={true}
           style={noImageClasses}
         >
           <Icon name="shared/image" className="text-[40px] md:text-[60px]" />
