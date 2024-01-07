@@ -30,43 +30,31 @@
   ],
   "articles": [
     {
-      "type": "PROMO",
+      "type": "TEXT",
+      "title": "Заголовок",
+      "subtitle": "Подзаголовок",
+      "text": [
+        "Привет! Это параграф 1",
+        "Привет! Это параграф 2",
+        "Привет! Это параграф 4",
+        "Привет! Говно!",
+        "Привет! Ну щас то точно ворк!"
+      ],
+      "direction": "left",
+      "buttonText": "Кнопка действия",
+      "buttonLink": "Кнопка действия ссылка",
       "imageUrl": "/images/promo-1.png",
-      "title": "Привет",
-      "subtitle": "Наш лучший товар",
-      "buttonText": "2000к руб",
       "position": 2,
       "id": 1
     },
     {
       "type": "PROMO",
       "imageUrl": "/images/promo-1.png",
-      "title": "",
-      "subtitle": "",
-      "buttonText": "",
-      "position": 1,
+      "title": "Заголовок",
+      "subtitle": "Подзаголовок",
+      "buttonText": "300к",
+      "position": 3,
       "id": 2
-    },
-    {
-      "type": "PROMO",
-      "imageUrl": "",
-      "title": "",
-      "subtitle": "",
-      "buttonText": "",
-      "position": 1,
-      "id": 3
-    },
-    {
-      "type": "TEXT",
-      "title": "",
-      "subtitle": "",
-      "text": "",
-      "direction": "left",
-      "buttonText": "",
-      "buttonLink": "",
-      "imageUrl": "",
-      "position": 2,
-      "id": 4
     },
     {
       "type": "CARD",
@@ -74,12 +62,12 @@
       "cards": [
         {
           "id": "1",
-          "title": "",
-          "icon": "",
+          "title": "Заголовок",
+          "icon": "lightning",
           "benefits": [],
           "isPopular": false,
           "price": "",
-          "duration": ""
+          "duration": "Абоба"
         },
         {
           "id": "2",
@@ -100,8 +88,17 @@
           "duration": ""
         }
       ],
+      "position": 4,
+      "id": 3
+    },
+    {
+      "type": "PROMO",
+      "imageUrl": "",
+      "title": "",
+      "subtitle": "",
+      "buttonText": "",
       "position": 3,
-      "id": 5
+      "id": 4
     }
   ]
 }

@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { customRevalidateTag } from '@/helpers/revalidate'
 import { addArticle } from '@/store/service/add-article'
 import { changeArticlePosition } from '@/store/service/change-position'
 import { deleteArticleById } from '@/store/service/delete-article'
@@ -31,6 +32,8 @@ export const articleSlice = createSlice({
         state.isLoading = true
       })
       .addCase(updateArticleById.fulfilled, (state, action) => {
+        customRevalidateTag('articles')
+
         state.isLoading = false
         state.articleData = state.articleData.map((article) =>
           article.id === action.payload.id ? action.payload : article,
@@ -40,11 +43,12 @@ export const articleSlice = createSlice({
         state.isLoading = false
         state.error = action.payload
       })
-
       .addCase(updateArticleCardById.pending, (state) => {
         state.isLoading = true
       })
       .addCase(updateArticleCardById.fulfilled, (state, action) => {
+        customRevalidateTag('articles')
+
         state.isLoading = false
 
         const article = state.articleData.find((article) => article.id === action.payload.articleId)
@@ -65,6 +69,8 @@ export const articleSlice = createSlice({
         state.isLoading = true
       })
       .addCase(addArticle.fulfilled, (state, action) => {
+        customRevalidateTag('articles')
+
         state.isLoading = false
         state.articleData = [...state.articleData, action.payload]
       })
@@ -77,6 +83,8 @@ export const articleSlice = createSlice({
         state.isLoading = true
       })
       .addCase(deleteArticleById.fulfilled, (state, action) => {
+        customRevalidateTag('articles')
+
         state.isLoading = false
         state.articleData = state.articleData.filter((article) => article.id !== action.meta.arg)
       })
@@ -89,6 +97,8 @@ export const articleSlice = createSlice({
         state.isLoading = true
       })
       .addCase(changeArticlePosition.fulfilled, (state) => {
+        customRevalidateTag('articles')
+
         state.isLoading = false
       })
       .addCase(changeArticlePosition.rejected, (state, action) => {

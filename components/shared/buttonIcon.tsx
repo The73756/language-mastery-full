@@ -12,7 +12,7 @@ const buttonIconVariants = cva(
         success: 'bg-green outline-accent hover:bg-green-hover',
       },
       disabled: {
-        true: 'bg-gray cursor-not-allowed',
+        true: 'bg-custom-gray cursor-not-allowed',
         false: '',
       },
     },

@@ -10,7 +10,7 @@ const buttonLinkVariants = cva(
         primary: 'bg-primary hover:bg-primary-hover',
       },
       disabled: {
-        true: 'bg-gray cursor-not-allowed',
+        true: 'bg-custom-gray cursor-not-allowed',
         false: '',
       },
     },

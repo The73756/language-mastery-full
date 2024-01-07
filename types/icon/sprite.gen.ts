@@ -8,11 +8,12 @@ export interface SpritesMap {
     | 'delete'
     | 'eye-closed'
     | 'eye'
+    | 'image'
     | 'lightning'
     | 'logo-colored'
-    | 'updated'
     | 'logo'
     | 'no-image'
+    | 'updated'
 }
 export const SPRITES_META: {
   [Key in keyof SpritesMap]: {
@@ -70,6 +71,11 @@ export const SPRITES_META: {
         width: 20,
         height: 14,
       },
+      'image': {
+        viewBox: '0 0 512 512',
+        width: 512,
+        height: 512,
+      },
       'lightning': {
         viewBox: '0 0 60 70',
         width: 60,
@@ -80,11 +86,6 @@ export const SPRITES_META: {
         width: 64,
         height: 50,
       },
-      'updated': {
-        viewBox: '0 0 512 434',
-        width: 512,
-        height: 434,
-      },
       'logo': {
         viewBox: '0 0 501 391',
         width: 501,
@@ -94,6 +95,11 @@ export const SPRITES_META: {
         viewBox: '0 0 450 450',
         width: 450,
         height: 450,
+      },
+      'updated': {
+        viewBox: '0 0 512 434',
+        width: 512,
+        height: 434,
       },
     },
   },

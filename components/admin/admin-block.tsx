@@ -25,6 +25,7 @@ interface AdminBlockProps {
 }
 
 export const AdminBlock = ({ serverData }: AdminBlockProps) => {
+  console.log('admin-block [AdminBlock]', serverData)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isSubmitModalOpen, setIsSubmitModalOpen] = useState(false)
   const articlesData = useInitData(serverData)

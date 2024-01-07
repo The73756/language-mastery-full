@@ -50,7 +50,7 @@ export const ModalWrapper = ({
                 <button
                   type="button"
                   onClick={onClose}
-                  className="absolute text-gray text-[20px] hover:text-black/60 transition-colors size-5 flex items-center justify-center top-4 right-4 md:top-7 md:right-7"
+                  className="absolute text-custom-gray text-[20px] hover:text-black/60 transition-colors size-5 flex items-center justify-center top-4 right-4 md:top-7 md:right-7"
                 >
                   <Icon name="shared/cross" />
                 </button>

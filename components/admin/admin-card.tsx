@@ -83,7 +83,11 @@ export const AdminCard = ({
 
   const handleUpdateCard = async (cardData: Inputs) => {
     try {
-      const benefits = cardData.benefits.split(';').map((el) => el.trim())
+      const benefits = cardData.benefits
+        .split(';')
+        .map((el) => el.trim())
+        .filter((el) => el !== '')
+
       const data = { ...cardData, benefits, icon: cardData.icon?.value as CardIcon }
 
       console.log('admin-card [handleUpdateCard]', data)

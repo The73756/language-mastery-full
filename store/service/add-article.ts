@@ -22,7 +22,7 @@ const ArticleTextPlaceholder = {
   type: ArticleType.TEXT,
   title: '',
   subtitle: '',
-  text: '',
+  text: [] as string[],
   direction: 'left',
   buttonText: '',
   buttonLink: '',

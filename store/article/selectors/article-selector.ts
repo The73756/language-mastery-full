@@ -6,5 +6,7 @@ export const selectIsArticleEmpty = (state: RootState) => state.article.articleD
 
 export const selectMaxPosition = (state: RootState) => {
   const positions = state.article.articleData.map((article) => article.position)
+  if (positions.length === 0) return 0
+
   return Math.max(...positions)
 }

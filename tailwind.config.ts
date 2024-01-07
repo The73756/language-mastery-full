@@ -25,7 +25,7 @@ const config: Config = {
           DEFAULT: '#259f30',
           hover: '#1e8c27',
         },
-        'gray': '#a0a5b6',
+        'custom-gray': '#a0a5b6',
         'light-blue': '#e8edf3',
         'bg': '#fff',
       },
@@ -63,8 +63,21 @@ const config: Config = {
       borderRadius: {
         5: '20px',
       },
+      keyframes: {
+        gradient: {
+          '0%': { 'background-position': '0% 50%' },
+          '50%': { 'background-position': '100% 50%' },
+          '100%': { 'background-position': '0% 50%' },
+        },
+      },
+      animation: {
+        gradient: 'gradient 2s ease infinite',
+      },
       backgroundImage: {
         'custom-gradient': 'linear-gradient(135deg, #dc5151 0%, #3e74dc 100%)',
+      },
+      backgroundSize: {
+        '200%': '200% 200%',
       },
     },
     screens: {

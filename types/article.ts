@@ -24,7 +24,7 @@ export interface ArticleText extends ArticleBase {
   type: typeof ArticleType.TEXT
   title?: string
   subtitle?: string
-  text?: string
+  text?: string[]
   direction: 'left' | 'right'
   buttonText?: string
   buttonLink?: string

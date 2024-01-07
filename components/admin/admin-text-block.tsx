@@ -39,6 +39,7 @@ export const AdminTextBlock = ({
 }: ArticleText) => {
   const dispatch = useAppDispatch()
   const defaultOption = dropdownOptions.find((el) => el.value === direction) || null
+  const textString = text?.join('\n')
 
   const {
     register,
@@ -53,7 +54,7 @@ export const AdminTextBlock = ({
       title,
       subtitle,
       buttonText,
-      text,
+      text: textString,
       buttonLink,
       direction: defaultOption,
     },
@@ -67,7 +68,8 @@ export const AdminTextBlock = ({
 
   const handleUpdateArticle = async (articleData: Inputs) => {
     try {
-      const data = { ...articleData, direction: articleData.direction?.value }
+      const textArray = articleData.text.split('\n')
+      const data = { ...articleData, direction: articleData.direction?.value, text: textArray }
 
       await dispatch(updateArticleById({ id, articleData: data }))
       reset(articleData)
