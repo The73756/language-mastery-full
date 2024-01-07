@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useSelector } from 'react-redux'
 import { RequireAuth } from '@/app/require-auth'
@@ -25,7 +25,6 @@ interface AdminBlockProps {
 }
 
 export const AdminBlock = ({ serverData }: AdminBlockProps) => {
-  console.log('admin-block [AdminBlock]', serverData)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isSubmitModalOpen, setIsSubmitModalOpen] = useState(false)
   const articlesData = useInitData(serverData)
@@ -34,20 +33,18 @@ export const AdminBlock = ({ serverData }: AdminBlockProps) => {
   const dispatch = useAppDispatch()
   const router = useRouter()
 
-  //TODO: uncomment an prod
+  useEffect(() => {
+    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+      event.preventDefault()
+      event.returnValue = ''
+    }
 
-  // useEffect(() => {
-  //   const handleBeforeUnload = (event: BeforeUnloadEvent) => {
-  //     event.preventDefault()
-  //     event.returnValue = ''
-  //   }
-  //
-  //   window.addEventListener('beforeunload', handleBeforeUnload)
-  //
-  //   return () => {
-  //     window.removeEventListener('beforeunload', handleBeforeUnload)
-  //   }
-  // }, [])
+    window.addEventListener('beforeunload', handleBeforeUnload)
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload)
+    }
+  }, [])
 
   const handleLogout = () => {
     dispatch(userActions.logout())

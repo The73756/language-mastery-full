@@ -71,7 +71,7 @@
         },
         {
           "id": "2",
-          "title": "",
+          "title": "Тестим хоть что нибудь",
           "icon": "",
           "benefits": [],
           "isPopular": false,
@@ -80,12 +80,16 @@
         },
         {
           "id": "3",
-          "title": "",
-          "icon": "",
-          "benefits": [],
+          "title": "Нука тестим врите",
+          "icon": "cap",
+          "benefits": [
+            "12312312",
+            "131231",
+            "131231"
+          ],
           "isPopular": false,
           "price": "",
-          "duration": ""
+          "duration": "13123"
         }
       ],
       "position": 4,

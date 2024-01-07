@@ -41,8 +41,8 @@ index.patch('/articles/:articleId/cards/:cardId', (req, res) => {
   try {
     const { articleId, cardId } = req.params
     const cardData = req.body
-    const db = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'db.json'), 'UTF-8'))
-    const { articles = [] } = db
+    const db = router.db
+    const { articles = [] } = db.getState()
 
     const article = articles.find((article) => String(article.id) === String(articleId))
     if (!article || article.type !== 'CARD') {
@@ -54,15 +54,12 @@ index.patch('/articles/:articleId/cards/:cardId', (req, res) => {
       return res.status(404).json({ message: 'Card not found' })
     }
 
-    // Merge existing card data with new card data
     const updatedCard = { ...card, ...cardData }
 
-    // Replace the old card with the updated card
     const cardIndex = article.cards.indexOf(card)
     article.cards[cardIndex] = updatedCard
 
-    // Write the updated data back to the database
-    fs.writeFileSync(path.resolve(__dirname, 'db.json'), JSON.stringify(db))
+    db.write()
 
     return res.json(updatedCard)
   } catch (error) {
