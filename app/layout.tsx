@@ -24,7 +24,9 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'ru_RU',
     url: 'https://language-mastery.vercel.app/',
-    images: ['https://language-mastery-full-3iphku5o2-the73756.vercel.app/preview.png'],
+    images: [
+      'https://opengraph.b-cdn.net/production/documents/68cec243-04df-4ee3-844f-b958e30557b8.png?token=Cu1nWJDrLZERXBepy1p90b8w4BfKLebp6Xae82PA00Y&height=630&width=1200&expires=33240618113',
+    ],
   },
 }
 
