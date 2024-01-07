@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'ru_RU',
     url: 'https://language-mastery.vercel.app/',
-    images: ['./preview.png'],
+    images: ['https://language-mastery-full-3iphku5o2-the73756.vercel.app/preview.png'],
   },
 }
 
