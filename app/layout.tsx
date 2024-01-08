@@ -28,6 +28,14 @@ export const metadata: Metadata = {
       'https://opengraph.b-cdn.net/production/documents/70474465-3d52-43fe-a3d0-887e797a2b73.png?token=0cOG9XVDNk9BCutCvHqQolCKTSHBcABBjLjESbJ-UYU&height=630&width=1200&expires=33240618707',
     ],
   },
+  twitter: {
+    title: 'Language Mastery',
+    description:
+      'Инновационный центр обучения языкам, который стремится изменить ваш подход к изучению и владению иностранными языками.',
+    images: [
+      'https://opengraph.b-cdn.net/production/documents/70474465-3d52-43fe-a3d0-887e797a2b73.png?token=0cOG9XVDNk9BCutCvHqQolCKTSHBcABBjLjESbJ-UYU&height=630&width=1200&expires=33240618707',
+    ],
+  },
 }
 
 export default function RootLayout({ children }: { children: ReactNode }) {
