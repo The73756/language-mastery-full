@@ -54,37 +54,8 @@ export const RegistrationForm = () => {
 
   return (
     <FormWrapper title="Регистрация" onSubmit={handleSubmit(onSubmit)}>
-      <div className="flex flex-col gap-3 md:gap-5 mb-7">
-        <Input
-          register={register('username', usernameRule)}
-          error={errors.username}
-          preset="white"
-          type="text"
-          autoComplete="name"
-          placeholder="Имя пользователя"
-        />
-        <InputPassword
-          register={register('password', passwordRule)}
-          error={errors.password}
-          preset="white"
-          autoComplete="new-password"
-          placeholder="Пароль"
-        />
-        <InputPassword
-          register={register('confirmPassword', {
-            validate: (val: string) => {
-              if (watch('password') !== val) {
-                return 'Пароли не совпадают!'
-              }
-            },
-          })}
-          error={errors.confirmPassword}
-          hideIcon
-          preset="white"
-          type="password"
-          autoComplete="new-password"
-          placeholder="Повторите пароль"
-        />
+      <div className="flex flex-col gap-3 md:gap-5 mb-7 text-white text-18-700 text-center">
+        Регистрация не доступна. Проконтактируйте с администратором.
       </div>
 
       <div className="text-16-400 flex-wrap gap-5 text-white flex justify-between items-center">
@@ -95,7 +66,7 @@ export const RegistrationForm = () => {
           </Link>
         </div>
 
-        <Button text="Зарегистрироваться" preset="accent" />
+        {/*<Button text="Зарегистрироваться" preset="accent" />*/}
       </div>
     </FormWrapper>
   )
